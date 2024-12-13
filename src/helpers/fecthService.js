@@ -1,9 +1,8 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://fakestoreapi.com';
+import { postLoginEndpoint } from './constants'
+import { setToken } from './utils'
 
 const axiosInstance = axios.create({
-    baseURL: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -22,8 +21,13 @@ export const fetchService = async (endpoint, method = 'GET', data = null) => {
             url: endpoint,
             method,
             data,
-        });
-        return response.data;
+        })
+        if (response.status === 200) {
+            setToken(response.data.token)
+            return { status: response.status }
+        } else {
+            throw { status: response.status }
+        }
     } catch (error) {
         console.error('Error en fetchService:', error.response || error.message);
         throw error.response ? error.response.data : error.message;
@@ -37,5 +41,5 @@ export const fetchService = async (endpoint, method = 'GET', data = null) => {
  * @returns {Promise<any>} - JSON response with authentication data.
  */
 export const loginService = (username, password) => {
-    return fetchService('/auth/login', 'POST', { username, password });
+    return fetchService(postLoginEndpoint, 'POST', { username, password })
 };
