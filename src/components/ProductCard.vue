@@ -1,6 +1,7 @@
 <template>
   <div class="product-item">
-    <span class="icono favorite"></span>
+    <!-- Implentación de clase "selected" para poder mostrar los productos seleccionados-->
+    <span @click="onFavoriteClicked" class="icono favorite" :class="{ selected: product.favorite }"></span>
     <img :src="product.image" :alt="product.title" class="product-image" />
     <h3 class="product-title">{{ product.title }}</h3>
     <p class="product-description">{{ product.description }}</p>

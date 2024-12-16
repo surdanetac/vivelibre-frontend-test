@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postLoginEndpoint } from './constants'
+import { postLoginEndpoint, getProductsListEndpoint } from './constants'
 import { setToken } from './utils'
 
 const axiosInstance = axios.create({
@@ -22,17 +22,12 @@ export const fetchService = async (endpoint, method = 'GET', data = null) => {
             method,
             data,
         })
-        if (response.status === 200) {
-            setToken(response.data.token)
-            return { status: response.status }
-        } else {
-            throw { status: response.status }
-        }
+        return response
     } catch (error) {
-        console.error('Error en fetchService:', error.response || error.message);
-        throw error.response ? error.response.data : error.message;
+        console.error('Error en fetchService:', error.response || error.message)
+        throw error.response ? error.response.data : error.message
     }
-};
+}
 
 /**
  * Specific service for user login
@@ -40,6 +35,29 @@ export const fetchService = async (endpoint, method = 'GET', data = null) => {
  * @param {string} password - User password.
  * @returns {Promise<any>} - JSON response with authentication data.
  */
-export const loginService = (username, password) => {
-    return fetchService(postLoginEndpoint, 'POST', { username, password })
-};
+export const loginService = async (username, password) => {
+    try {
+        const response = await fetchService(postLoginEndpoint, 'POST', { username, password })
+        if (response.status === 200) {
+            setToken(response.data.token)
+            return { status: response.status }
+        } else {
+            throw { status: response.status }
+        }
+    }
+    catch {
+        throw error.response ? error.response.data : error.message
+    }
+}
+
+/**
+ * Fetches the list of products from the API.
+ * @returns {Promise<any>} - A promise that resolves with the list of products.
+ */
+export const fetchProducts = async () => {
+    try {
+        return await fetchService(getProductsListEndpoint, 'GET')
+    } catch (error) {
+        throw error.response ? error.response.data : error.message
+    }
+}

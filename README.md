@@ -1,54 +1,27 @@
-¡Bienvenido a la prueba técnica! En ViveLibre, trabajamos con un stack tecnológico que abarca Vue.js, Javascript, TypeScript y diversas tecnologías de comunicación en tiempo real como SIP, Asterisk, SSE (Server-Sent Events), y WebSockets. Buscamos un desarrollador frontend con una sólida comprensión de JavaScript y Vue para reforzar nuestro equipo.
+Se especifican cambios realizados en el proyecto.
 
-La prueba técnica consta de dos partes, y su objetivo es evaluar tus habilidades para trabajar con tecnologías frontend modernas, identificar y corregir errores, y desarrollar soluciones funcionales de manera eficiente.
+## Componente Login 
 
+1. Se vinculan los campos de usuario y contraseña directamente con los datos internos del componente.
 
-## Instrucciones
+2. Se añadió un sistema de validación que verifica que los campos de usuario y contraseña no estén vacíos y que cumplan con los requisitos básicos. Se utiliza una función auxiliar (validateFields) que estandariza y centraliza la lógica de validación de campos. Esto facilita el mantenimiento y asegura consistencia en otras partes de la aplicación que puedan requerir validaciones similares. 
 
-Hemos preparado un [repositorio](https://github.com/desarrollo-vivelibre/frontend-test) que contiene un proyecto que simula una parte de una aplicación real. El proyecto tiene algunos errores y funcionalidades incompletas que debes corregir. Deberás hacer un fork del repositorio, trabajar sobre los fallos/requisitos especificados, subir los commits separados y ordenados, y luego comparte con nosotros el repositorio con tus soluciones.
+3. Manejo de errores, se gestionan errores tanto en las validaciones como en la autenticación.
 
-### **Parte 1: Implementación de Login**
-En esta parte de la prueba, el diseño del login ya está maquetado, pero la funcionalidad aún no está implementada. Tu tarea es:
+4. Se implementó una integración con un servicio de autenticación que valida las credenciales del usuario contra un servidor.
 
-Implementar la funcionalidad de login:
-- Debes conectar el formulario de login con un sistema de autenticación simulado  utilizando una [API externa](https://fakestoreapi.com/).
-- Validar el formulario, asegurándote de que los campos requeridos han sido rellenados y los valores de entrada sean correctos (por ejemplo, usuario y contraseña).
-- Implementar un sistema de mensajes de error o éxito para notificar al usuario el estado de la autenticación. En caso de que la autenticación sea exitosa, el token debe ser persistido en el navegador.
-- Una vez autenticado, redirigir al usuario a una vista principal o dashboard.
-- Los estilos actuales son muy básicos, por lo que si lo prefieres, puedes mejorar su apariencia, usabilidad o experiencia de usuario(Esto es totalmente opcional).
+## Componente ProductList
 
-### **Parte 2: Funcionalidad de Productos Favoritos**
-En la segunda parte de la prueba, se requiere que corrijas un fallo relacionado con la funcionalidad de "productos favoritos". Actualmente, los usuarios pueden marcar productos como favoritos, pero la funcionalidad no está funcionando correctamente.
+1. Se implementa sintaxis moderna de props y eventos de vue.
 
-Revisar y corregir la funcionalidad de favoritos:
-El sistema debería permitir a los usuarios seleccionar y deseleccionar productos como favoritos.
-Esta funcionalidad contiene algunos problemas. **Explica detalladamente con comentarios la causa de los errores encontrados y como los has solucionado.**
+2. Mejora de la funcion toggleProductFavorite() en la que se implementa una version mejorada del caso de uso.
 
-**Pautas de Evaluación**
-- Calidad del código: Legibilidad, estructura, y buenas prácticas.
-- Resolución de problemas: Habilidad para identificar y corregir errores.
-- Funcionalidad completa: Cumplimiento de los requisitos y funcionamiento correcto de las funcionalidades.
-- Documentación: Descripción clara de los cambios realizados con comentarios en el código.
+3. Se renombra la funcion por getProducts, para hacer implementacion del fetchservice.
 
-**¡Buena suerte y gracias por participar en el proceso de selección!**
+4. Se implementa un boton y funcion para borrar el token de localStorage
 
-### Environment
-```
-Node V14.20.1
-NPM V7.10.0
-VueJs 2
-Javascript
-```
+## Capa de servicio fecthService 
 
-### Prepare for development
-```
-npm install
-npm run serve
-```
+1. Se crea la capa de servicio fecthService para alojar importacion de libreria axios y manejar desde acá los llamados externos que se requieran y no tener esas logicas en el componente.
 
-### External API
-https://fakestoreapi.com/
-
-### PAGES
-- [" /"] Main - Products List
-- [" /login"] Authentication
+2. Se crean las funciones loginService y fetchProducts, para llamados hacia api externa.
